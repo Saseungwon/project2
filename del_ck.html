@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./js/storage.js"></script>
+<script src="./js/utils.js" type="text/javascript"></script>
+<script src="./js/storage.js" type="text/javascript"></script>
+<script src="./js/serializeObject.js" type="text/javascript"></script>
+<script src="./js/request.js" type="text/javascript"></script>
+<script src="./list.js"></script>
+
+<script>
+    var del_no=request.getParameterValues("del");
+    console.log(del_no);
+    var v_tblName = "userDogInfo";
+    var v_datas = loadItem(v_tblName);
+    for(var i=0; i< del_no.length; i++){
+        for(var j=0; j<v_datas.length; j++){
+            if(v_datas[j].no == del_no[i]){
+                v_datas.splice(j,1);
+                break;                    // 빼먹지 말아야 함
+            }
+        }
+    }
+    setItem(v_tblName, v_datas);
+    location.href="list.html"; 
+</script>
