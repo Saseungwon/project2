@@ -8,3 +8,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 ```
+
+1. 아작스 : 위험한 음식(사진 버튼)
+2. open api : 카카오맵(글쓰기에서 좌표 값 받아서 게시판에 지도 삽입)
+3. 회원가입 기능 구현
