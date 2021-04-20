@@ -24,14 +24,20 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="./아작스1.js"></script>
+    <script src="./imageUpload.js"></script>
+    <script src="./buttonControl.js"></script>
   </head>
   <style>
       .btm_image{
           border: 0;
           outline: 0;
           background-color: white;
+      }
+      #tablList{
+        border-radius: 5px;
+        
       }
 
   </style>
@@ -52,22 +58,22 @@
       <div class="jumbotron">
         <h2>강아지가 먹으면 안 되는 음식</h2> <br>
         <div id="id_disp"></div> <!-- 여기에 아작스 이미지 들어감 -->
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p class="lead" id="tablList" border="1">내용 넣기</p>
         <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
       </div>
       
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위1.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위2.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위3.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위4.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위5.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위6.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위7.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위8.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위9.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위10.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위11.png" style="height: 150px; width: 150px;"></button>
-      <button type="button" class="btm_image" id="img_btn"><img src="../project2/images/위12.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn0"><img src="../project2/images/dan1.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn1"><img src="../project2/images/dan2.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn2"><img src="../project2/images/dan3.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn3"><img src="../project2/images/dan4.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn4"><img src="../project2/images/dan5.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn5"><img src="../project2/images/dan6.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn6"><img src="../project2/images/dan7.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn7"><img src="../project2/images/dan8.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn8"><img src="../project2/images/dan9.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn9"><img src="../project2/images/dan10.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn10"><img src="../project2/images/dan11.png" style="height: 150px; width: 150px;"></button>
+      <button type="button" class="btm_image" id="img_btn11"><img src="../project2/images/dan12.png" style="height: 150px; width: 150px;"></button>
       
 
       <div class="row marketing">
