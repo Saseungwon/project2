@@ -1,4 +1,38 @@
-// Made to demonstrate how to use JQuery and TheDogAPI to load breed list, and show a breed image and data on selection. Any questions hit me up at - https://forum.thatapiguy.com - Aden
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/searchDog.css" />
+    <script src="./searchDog.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="banner-message">
+        <p>Select a Breed</p>
+      
+        <select class="breed_select">
+          <option></option>
+      </select>
+      
+      </div>
+      <div id="breed_data">
+        <img id="breed_image" src="" />
+        <p>
+          Breed Data
+        </p>
+        <table id="breed_data_table">
+      
+        </table>
+      </div>
+      
+    
+</body>
+
+<script>
 
 var breeds;
 
@@ -8,14 +42,14 @@ $('#breed_search').on('input', function(e) {
 });
 
 function searchBreeds(search_str) {
-  var string_length = search_str.length; // get the length of the search string so we know how many characters of the breed name to compare it to
-  search_str = search_str.toLowerCase(); // ensure search string and breed name are same case otherwise they won't match
-  for (var i = 0; i < breeds.length; i++) // loop through all the breeds in order
+  var string_length = search_str.length; 
+  search_str = search_str.toLowerCase();
+  for (var i = 0; i < breeds.length; i++) 
   {
-    var breed_name_snippet = breeds[i].name.substr(0, string_length).toLowerCase(); // get the first few cahracters of the name
+    var breed_name_snippet = breeds[i].name.substr(0, string_length).toLowerCase(); 
     if (breed_name_snippet == search_str) {
-      getDogByBreed(breeds[i].id); // show the breed just as we did in the Select demo
-      return; // return the function so we don't keep searching
+      getDogByBreed(breeds[i].id); 
+      return; 
     }
   }
 }
@@ -99,3 +133,7 @@ function ajax_get(url, callback) {
 }
 
 getBreeds();
+
+
+</script>
+</html>
