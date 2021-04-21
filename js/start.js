@@ -1,10 +1,10 @@
-var learn = document.getElementsByName('learn');
+// var learn = document.getElementsByName('learn');
 
-for (let i = 0; i < learn.length; i++) {
-    learn[i].addEventListener('click', function () {
-        alert('test');
-    });
-}
+// for (var i = 0; i < learn.length; i++) {
+//     learn[i].addEventListener('click', function () {
+       
+//     });
+// }
 
 // learn.addEventListener('click', function onClick() {
 //     alert('test');

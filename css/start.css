@@ -19,7 +19,23 @@ a:hover {
   border: 1px solid #fff;
 }
 
+.modal-content {
+  background: #333;
+}
 
+.modal-content > .modal-header > button > span {
+  color: #999;
+}
+
+td[name="missDogName"] {
+  cursor: pointer;
+  transition: all .2s;
+}
+
+td[name="missDogName"]:hover {
+  color: #adb5bd;
+  text-decoration: underline;
+}
 /*
  * Base structure
  */

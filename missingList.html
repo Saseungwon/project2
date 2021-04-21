@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/start.css" />
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="site-wrapper">
+
+        <div class="site-wrapper-inner">
+  
+          <div class="cover-container">
+  
+            <div class="masthead clearfix">
+              <div class="inner">
+                <h3 class="masthead-brand">HOME</h3>
+                <nav>
+                  <ul class="nav masthead-nav">
+                    <li><a href="start.html">정보</a></li>
+                    <li><a href="picture.html">사진첩</a></li>
+                    <li class="active"><a href="#">게시판</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+  
+            <div class="inner cover">
+              <h1 class="cover-heading">유기동물 게시판</h1> <br><br>
+           <div id_missImg></div>    <!-- 여기에 아작스로 유기동물 이미지 뜨게 구현 -->
+              <table class="table table-striped">
+                  <div id="id_disp">
+                    <input type=submit id="id_sub" value="리스트 출력">
+                    <form id="id_form" action="del_ck.html" method="get" >
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">나이</th>
+                          <th scope="col">색상</th>
+                          <th scope="col">품종</th>
+                          <th scope="col">성별</th>
+                        </tr>
+                      </thead>
+                      <tbody id="missingDogTable"> <!-- list.js 에서 만든 거 tbody에 삽입 -->
+                      </tbody>
+                    </table>
+                    
+                    
+                  </div> 
+                </table> <br>
+                
+                <p class="lead">
+                  <a href="write.html" class="btn btn-lg btn-default">글작성</a>
+                </form>
+                <button class="btn btn-lg btn-default" type="submit" id="id_sub">선택삭제</button> 
+              </p>
+            </div>
+  
+            <div class="mastfoot">
+              <div class="inner">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" onclick="callAjaxMissDogList(1)" ><a class="page-link" href="#">1</a></li>
+          <li class="page-item" onclick="callAjaxMissDogList(2)"><a class="page-link" href="#">2</a></li>
+          <li class="page-item" onclick="callAjaxMissDogList(3)"><a class="page-link" href="#">3</a></li>
+        </ul>
+      </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detailMissDogInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 합쳐지고 최소화된 최신 CSS 여기에 놓음 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>        
+
+    <script src="./js/apiUrl.js"></script>
+    <script src="./js/start.js" > </script>
+    <script src="./js/storage.js" > </script>
+    <script src="./list.js" > </script>
+    <script src="./js/utils.js"></script>
+    
+    <script>
+        function createAppendTags(desertionNo, missDogData) {
+            return function () {
+                var modalBody = document.getElementById("modalBody");
+                var modalTitle = document.getElementById("modalTitle");
+
+                for (var i = 0; i < missDogData.length; i++) {
+                    var dogInfo = missDogData[i];
+
+                    if(dogInfo.desertionNo === desertionNo) {
+                        var str = '';
+                        str += '<div>';
+                        str += '<div><image width="400px" height="400px" src="'+ dogInfo.popfile + '"/></div>'
+                        str += '<div>'+ dogInfo.processState +'</div>'
+                        str += '</div>';
+
+                        modalBody.innerHTML = str;
+                        modalTitle.innerHTML = '유기동물 고유번호: ' +  dogInfo.desertionNo;
+                    }
+                }
+            }
+        }
+
+
+        function showDetailMissDogInfo(missDogData) {
+            var missDogNames = document.getElementsByName('missDogName');
+
+            for (var i = 0; i < missDogNames.length; i++) {
+                    missDogNames[i].addEventListener('click', createAppendTags(missDogNames[i].dataset['desertion'], missDogData));
+            }
+        }
+
+
+        function callAjaxMissDogList(pageNo) {
+            
+            var v_ajax = new XMLHttpRequest();
+
+            v_ajax.open(
+                "post",
+                "wpost.php",
+                true); 
+            v_ajax.onreadystatechange = function(){
+                if(v_ajax.readyState==4 && v_ajax.status == 200){
+                    var missingDogTable = document.querySelector("#missingDogTable");
+
+                    missingDogTable.innerHTML = '';
+
+                    //console.log(JSON.parse(v_ajax.responseText));
+                    var v_json = JSON.parse(v_ajax.responseText); 
+                    var v_missDogData = v_json.body.items.item; 
+                    console.log(v_json.body.items.item); 
+                    var v_tblStr = '<table class="table">'; 
+    
+                        for(var i=0; i < v_missDogData.length; i++){
+                            //console.log(v_missDogData.length); 10
+                            console.log(v_missDogData[i].age);
+                            //v_tblStr += "<td>" + v_missDogData[i].age+ "</td>"; 
+                            v_tblStr += '<tr>'
+                            v_tblStr += '<th scope="row" >' + (i+1) + '</th>';
+                            v_tblStr += '<td name="missDogName" data-desertion="' +v_missDogData[i].desertionNo+ '" data-toggle="modal" data-target="#detailMissDogInfo">'+ v_missDogData[i].age +' </td>';
+                            v_tblStr += '<td>'+ v_missDogData[i].colorCd +'</td>';
+                            v_tblStr += '<td>'+ v_missDogData[i].kindCd +'</td>';
+                            v_tblStr += '<td>'+ v_missDogData[i].sexCd +'</td>';
+                            v_tblStr += '</tr>'
+    
+                            // age: 나이
+                            // careAddr: 주소
+                            // careNm: 보호기관명
+                            // careTel: 보호소전화번호
+                            // chargeNm: 담당자명
+                            // colorCd: 색상
+                            // happenDt: 접수일
+                            // happenPlace: 발견지역
+                            // kindCd: 품종
+                            // neuterYn: 중성화여부
+                            // officetel: 담당자연락처
+                            // popfile: 이미지
+                            // processState: 상태
+                            // sexCd: 성별
+                            // specialMark: 특징
+                            // weight: 체중                
+                        }
+    
+                        v_tblStr +="</table>"
+                        missingDogTable.innerHTML += v_tblStr;
+                        showDetailMissDogInfo(v_missDogData);
+                }
+            }
+            var data = new FormData();
+            data.append('pageNo', pageNo || 1);
+            v_ajax.send(data); 
+        }
+
+        function onClickRenderMissDogList() {
+            var v_btn = document.querySelector("#id_sub");
+            v_btn.addEventListener("click",function(){ callAjaxMissDogList(1); });
+        }
+
+        onClickRenderMissDogList();
+    </script>
+
+</body>
+
+
+</html>
