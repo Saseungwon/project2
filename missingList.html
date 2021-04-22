@@ -8,7 +8,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/start.css" />
     <title>Document</title>
+    
+    <style>
+.pagination {
+   justify-content: center;
+}
+    </style>
 </head>
+
+
 <body>
     
     <div class="site-wrapper">
@@ -19,12 +27,11 @@
   
             <div class="masthead clearfix">
               <div class="inner">
-                <h3 class="masthead-brand">HOME</h3>
+                <h3 class="masthead-brand"></h3>
                 <nav>
                   <ul class="nav masthead-nav">
-                    <li><a href="start.html">정보</a></li>
-                    <li><a href="picture.html">사진첩</a></li>
-                    <li class="active"><a href="#">게시판</a></li>
+                    <li><a href="start.html">홈으로</a></li>
+
                   </ul>
                 </nav>
               </div>
@@ -35,7 +42,9 @@
            <div id_missImg></div>    <!-- 여기에 아작스로 유기동물 이미지 뜨게 구현 -->
               <table class="table table-striped">
                   <div id="id_disp">
-                    <input type=submit id="id_sub" value="리스트 출력">
+                    <!--  <input type=submit id="id_sub" value="리스트 출력"> -->
+                    <button type="button" id="id_sub"  class="btn btn-light">리스트 출력</button>
+
                     <form id="id_form" action="del_ck.html" method="get" >
                     <table class="table">
                       <thead>
@@ -55,11 +64,20 @@
                   </div> 
                 </table> <br>
                 
-                <p class="lead">
-                  <a href="write.html" class="btn btn-lg btn-default">글작성</a>
-                </form>
-                <button class="btn btn-lg btn-default" type="submit" id="id_sub">선택삭제</button> 
-              </p>
+                <nav class="pagNation" aria-label="Page navigation example" >
+                  <ul class="pagination">   
+                    <li class="page-item" onclick="callAjaxMissDogList(1)" ><a class="page-link" href="#">1</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(2)"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(3)"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(4)"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(5)"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(6)"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(7)"><a class="page-link" href="#">7</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(8)"><a class="page-link" href="#">8</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(9)"><a class="page-link" href="#">9</a></li>
+                    <li class="page-item" onclick="callAjaxMissDogList(10)"><a class="page-link" href="#">10</a></li>
+                  </ul>
+                </nav>
             </div>
   
             <div class="mastfoot">
@@ -70,13 +88,7 @@
         </div>
       </div>
 
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item" onclick="callAjaxMissDogList(1)" ><a class="page-link" href="#">1</a></li>
-          <li class="page-item" onclick="callAjaxMissDogList(2)"><a class="page-link" href="#">2</a></li>
-          <li class="page-item" onclick="callAjaxMissDogList(3)"><a class="page-link" href="#">3</a></li>
-        </ul>
-      </nav>
+
 
     <!-- Modal -->
     <div class="modal fade" id="detailMissDogInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -92,8 +104,8 @@
 
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-success"><a href="https://www.animals.or.kr/support/intro">후원하기</a></button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
         </div>
         </div>
@@ -123,9 +135,44 @@
                     if(dogInfo.desertionNo === desertionNo) {
                         var str = '';
                         str += '<div>';
-                        str += '<div><image width="400px" height="400px" src="'+ dogInfo.popfile + '"/></div>'
-                        str += '<div>'+ dogInfo.processState +'</div>'
-                        str += '</div>';
+                        str += '<div><image width="464.45px" height="400px" src="'+ dogInfo.popfile + '"/></div>'
+
+                        str += '<table class="table table-bordered">';
+                        str += '<tbody>'
+                     
+                        str += '<tr><td>'+ "나이" +'</td>'+ '<td>' + dogInfo.age + '</td></tr>';
+                        str += '<tr><td>'+ "주소" +'</td>'+ '<td>' + dogInfo.careAddr + '</td></tr>';
+                        str += '<tr><td>'+ "보호소전화번호" +'</td>'+ '<td>' + dogInfo.careTel + '</td></tr>';
+                        str += '<tr><td>'+ "색상" +'</td>'+ '<td>' + dogInfo.colorCd + '</td></tr>';
+                        str += '<tr><td>'+ "발견지역" +'</td>'+ '<td>' + dogInfo.happenPlace + '</td></tr>';
+                        str += '<tr><td>'+ "품종" +'</td>'+ '<td>' + dogInfo.kindCd + '</td></tr>';
+                        str += '<tr><td>'+ "담당자연락처" +'</td>'+ '<td>' + dogInfo.officetel + '</td></tr>';
+                        str += '<tr><td>'+ "상태" +'</td>'+ '<td>' + dogInfo.processState + '</td></tr>';
+                        str += '<tr><td>'+ "성별" +'</td>'+ '<td>' + dogInfo.sexCd + '</td></tr>';
+                        str += '<tr><td>'+ "특징" +'</td>'+ '<td>' + dogInfo.specialMark + '</td></tr>';
+                        str += '<tr><td>'+ "체중" +'</td>'+ '<td>' + dogInfo.weight + '</td></tr>';
+ 
+                        str += '</tr>';
+                        str += '</tbody>';
+                        str += '</table>';
+
+                         
+                            // age: 나이
+                            // careAddr: 주소
+                            // careNm: 보호기관명
+                            // careTel: 보호소전화번호
+                            // chargeNm: 담당자명
+                            // colorCd: 색상
+                            // happenDt: 접수일
+                            // happenPlace: 발견지역
+                            // kindCd: 품종
+                            // neuterYn: 중성화여부
+                            // officetel: 담당자연락처
+                            // popfile: 이미지
+                            // processState: 상태
+                            // sexCd: 성별
+                            // specialMark: 특징
+                            // weight: 체중      
 
                         modalBody.innerHTML = str;
                         modalTitle.innerHTML = '유기동물 고유번호: ' +  dogInfo.desertionNo;
@@ -175,23 +222,7 @@
                             v_tblStr += '<td>'+ v_missDogData[i].kindCd +'</td>';
                             v_tblStr += '<td>'+ v_missDogData[i].sexCd +'</td>';
                             v_tblStr += '</tr>'
-    
-                            // age: 나이
-                            // careAddr: 주소
-                            // careNm: 보호기관명
-                            // careTel: 보호소전화번호
-                            // chargeNm: 담당자명
-                            // colorCd: 색상
-                            // happenDt: 접수일
-                            // happenPlace: 발견지역
-                            // kindCd: 품종
-                            // neuterYn: 중성화여부
-                            // officetel: 담당자연락처
-                            // popfile: 이미지
-                            // processState: 상태
-                            // sexCd: 성별
-                            // specialMark: 특징
-                            // weight: 체중                
+             
                         }
     
                         v_tblStr +="</table>"
