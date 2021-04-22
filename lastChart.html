@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+</head>
+<body>
+    <div style="width:500px;height:500px;">
+        <canvas id="DogChart"></canvas>
+        <canvas id="MissChart"></canvas>
+        <canvas id="MissDonut"></canvas>
+    </div>
+<script>
+
+
+var ctx = document.getElementById('DogChart').getContext('2d');
+var DogChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['2010년', '2012년', '2015년', '2017년', '2018년', '2019년'],
+        datasets: [
+            {
+            label: '반려견 양육현황(단위 : 만 마리)',
+            data: [4615198, 4397275, 5126127, 6620342, 5072272, 5984903],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 3,
+            tension: 0
+            },
+    ]
+    },
+
+});
+
+var Mschart = document.getElementById('MissChart').getContext('2d');
+var MissChart = new Chart(Mschart, {
+    type: 'line',
+    data: {
+    labels: ['2010년', '2012년', '2015년', '2017년', '2018년', '2019년'],
+    datasets: [
+            {
+            label: '반려견 양육현황(단위 : 마리)',
+            data: [55902, 59168, 59633, 74337, 91797, 102363],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 3,
+            tension: 0
+            }
+
+]
+},
+});
+
+
+
+var MsDonut = document.getElementById('MissDonut').getContext('2d');
+var MissDonut = new Chart(MsDonut, {
+    type: 'doughnut',
+    data: {
+    labels: ['보호중', '입양', '반환', '자연사', '안락사', '기타'],
+    datasets: [
+            {
+            label: '반려견 양육현황(단위 : 마리)',
+            data: [14.1, 27.2, 14.3, 24.2, 17.7, 2.5],
+            fill: false,
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+            ],
+            borderWidth: 3,
+            
+            options: {
+    plugins: {
+      datalabels: {
+        display: true,
+        align: 'bottom',
+        backgroundColor: '#ccc',
+        borderRadius: 3,
+        font: {
+          size: 18,
+        }
+      },
+    }
+  }
+
+            
+            
+            
+            }
+
+    ]
+},
+
+});
+
+</script>
+</body>
+</html>
+
