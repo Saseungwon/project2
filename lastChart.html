@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+    
 </head>
 <body>
-    <div style="width:500px;height:500px;">
+    <div style="width:700px;height:700px;">
         <canvas id="DogChart"></canvas>
         <canvas id="MissChart"></canvas>
+
+        <input type=button value="유기견 사망률" onclick="f_chg()">
+        <input type=button value="생존 유기견 중 보호중 제외한 값" onclick="f_chg1()">
+        <input type=button value="보호중 유기견 10일 후 안락사" onclick="f_chg2()">
         <canvas id="MissDonut"></canvas>
     </div>
 <script>
@@ -46,6 +53,52 @@ var DogChart = new Chart(ctx, {
             },
     ]
     },
+    options:{
+        title: {
+            display: true,
+            text: '연도별 반려견 수',
+            position: 'top',
+            fontSize: 20,
+            fontColor: '#111',
+            padding: 5
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 30,
+                fontColor: '#111',
+                padding: 0
+            }
+        },
+
+        tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+			animation: {
+				duration: 1,
+				onComplete: function () {
+					var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+					ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+					ctx.fillStyle = 'purple';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'bottom';
+
+					this.data.datasets.forEach(function (dataset, i) {
+						var meta = chartInstance.controller.getDatasetMeta(i);
+						meta.data.forEach(function (bar, index) {
+							var data = dataset.data[index];							
+							ctx.fillText(data, bar._model.x, bar._model.y - 5);
+						});
+					});
+				}
+			},
+            
+    }
 
 });
 
@@ -77,11 +130,119 @@ var MissChart = new Chart(Mschart, {
             ],
             borderWidth: 3,
             tension: 0
+            
             }
 
-]
-},
+    ]
+    },
+    options:{
+        title: {
+            display: true,
+            text: '연도별 유기견 수',
+            position: 'top',
+            fontSize: 20,
+            fontColor: '#111',
+            padding: 5
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 20,
+                fontColor: '#111',
+                padding: 15
+            }
+        },
+
+        tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+			animation: {
+				duration: 1,
+				onComplete: function () {
+					var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+					ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+					ctx.fillStyle = 'purple';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'bottom';
+
+					this.data.datasets.forEach(function (dataset, i) {
+						var meta = chartInstance.controller.getDatasetMeta(i);
+						meta.data.forEach(function (bar, index) {
+							var data = dataset.data[index];							
+							ctx.fillText(data, bar._model.x, bar._model.y - 5);
+						});
+					});
+				}
+			}
+    }
+
 });
+
+
+//버튼1
+function f_chg(){
+        //console.log(MissDonut.data.datasets[0]);
+        //console.log(MissDonut.data.labels);     
+        MissDonut.data.labels = ['생존', '사망'];
+        //MissDonut.data.datasets[0].labels = ['생존', '사망']
+        MissDonut.data.datasets[0].data = [58.1, 41.9];
+        MissDonut.data.datasets[0].backgroundColor = [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 99, 132, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+        ]
+        MissDonut.options.title.text = '유기견 사망률'
+        MissDonut.update(); 
+    }
+
+//버튼2
+    function f_chg1(){
+        MissDonut.data.labels = ['생존','보호중', '사망']
+        MissDonut.data.datasets[0].data = [44, 41.9, 14.1];
+        MissDonut.data.datasets[0].backgroundColor = [
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(114, 229, 163, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(114, 229, 163, 1)'
+        ]
+        MissDonut.options.title.text = '보호중 상태 포함된 생존율'
+        MissDonut.update();  
+    }    
+
+//버튼3
+    function f_chg2(){
+    
+        //  console.log(MissDonut.data.datasets[0]);
+        MissDonut.data.labels = ['생존', '사망']
+        MissDonut.data.datasets[0].data = [52.5, 47.5];
+        MissDonut.data.datasets[0].backgroundColor = [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 99, 132, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+        ]
+        MissDonut.options.title.text = '보호중인 유기견  사망률 예측'
+        console.log(MissDonut.options.title.text);
+
+        MissDonut.update(); 
+    }    
+
+
+
 
 
 
@@ -89,27 +250,27 @@ var MsDonut = document.getElementById('MissDonut').getContext('2d');
 var MissDonut = new Chart(MsDonut, {
     type: 'doughnut',
     data: {
-    labels: ['보호중', '입양', '반환', '자연사', '안락사', '기타'],
+    labels: ['보호중', '입양', '반환', '기타', '자연사', '안락사'],
     datasets: [
             {
-            label: '반려견 양육현황(단위 : 마리)',
-            data: [14.1, 27.2, 14.3, 24.2, 17.7, 2.5],
+            label: '유기견 처리상태(단위 : %)',
+            data: [14.1, 27.2, 14.3, 2.5, 24.2, 17.7],
             fill: false,
             backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(241, 142, 78, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(103, 232, 150, 0.5)',
+                'rgba(103, 169, 232, 0.5)',
+                'rgba(181, 103, 232, 0.5)'
             ],
             borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
                 'rgba(255, 99, 132, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
+                'rgba(241, 142, 78, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(103, 232, 150, 1)',
+                'rgba(103, 169, 232, 1)',
+                'rgba(181, 103, 232, 1)'
             ],
             borderWidth: 3,
             
@@ -125,19 +286,68 @@ var MissDonut = new Chart(MsDonut, {
         }
       },
     }
-  }
-
-            
-            
-            
+  }      
             }
 
     ]
 },
+options: {
+        title: {
+            display: true,
+            text: '유기견 처리현황',
+            position: 'top',
+            fontSize: 20,
+            fontColor: '#111',
+            padding: 5
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 20,
+                fontColor: '#111',
+                padding: 15
+            }
+        },
+        
+        tooltips: {
+            enabled: false
+        },
+/*         plugins: {
+            datalabels: {
+                color: '#111',
+                textAlign: 'center',
+                font: {
+                    lineHeight: 1.6
+                },
+                formatter: function(value, MsDonut) {
+                    return MsDonut.chart.data.labels[MsDonut.dataIndex] + '\n' + value + '%';
+                }
+            }
+        }, */
 
+        plugins: {
+            
+      datalabels: {
+        formatter: (value) => {
+        
+          return value + '%';
+        }
+      }
+    }
+        
+        
+        
+    },
+
+    formatter: function(value) {
+      return value + '%';
+}
 });
+
 
 </script>
 </body>
+
 </html>
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>아작스페이지</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./css/아작스1.css" />
+
+  </head>
+  <style>
+      .btm_image{
+          border: 0;
+          outline: 0;
+          background-color: white;
+      }
+      #tablList{
+        border-radius: 5px;
+        
+      }
+  </style>
+  <body>
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="start.html">Home</a></li>
+
+          </ul>
+        </nav>
+        <h3 class="text-muted">유기견 통계</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h2>유기견 통계</h2> <br>
+      </div>
+
+      <div style="width:700px;height:700px;">
+        <canvas id="DogChart"></canvas>
+        <canvas id="MissChart"></canvas>
+
+        <input type=button value="유기견 사망률" onclick="f_chg()">
+        <input type=button value="생존 유기견 중 보호중 제외한 값" onclick="f_chg1()">
+        <input type=button value="보호중 유기견 10일 후 안락사" onclick="f_chg2()">
+        <canvas id="MissDonut"></canvas>
+    </div>
+      
+
+      <!-- <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+
+
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div> -->
+<!-- 
+      <footer class="footer">
+        <p>&copy; Company 2014</p>
+      </footer> -->
+
+    </div> <!-- /container -->
+
+    <script>
+
+        
+    </script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="./imageUpload.js"></script>
+  </body>
+</html>
