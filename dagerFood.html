@@ -31,17 +31,59 @@
   <body>
     <div class="container">
       <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="start.html">Home</a></li>
-
-          </ul>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project Dog</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="start.html">홈</a></li>
+    
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="list.html">정보 게시판</a></li>
+                    <li><a href="./missingList.html">유기동물 게시판</a></li>
+                  </li>
+                  </ul>
+    
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">정보 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="searchDog1.html">견종</a></li>
+                      <li><a href="./dagerFood.html">위험한 음식</a></li>
+                    </li>
+                    </ul>
+    
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">유기견 <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="MissChart.html">통계</a></li>
+                        <li><a href="./missingList.html">유기동물 게시판</a></li>
+                      </li>
+    
+                      <li class="divider"></li>
+                    <li class="dropdown-header">다른 사이트로 이동</li>
+                    <li><a href="https://www.daejeon.go.kr/ani/index.do">대전시 동물보호센터</a></li>
+                    <li><a href="https://www.animals.or.kr/support/intro">후원하기</a></li>
+                      </ul>
+                </li>
+              </ul>
+    
+            </div><!--/.nav-collapse -->
+          </div>
         </nav>
-        <h3 class="text-muted">위험한 음식</h3>
       </div>
 
       <div class="jumbotron">
-        <h2>강아지가 먹으면 안 되는 음식</h2> <br>
+        <h3>위험한 음식</h3> <br>
         <div id="selectFoodImage"></div> <!-- 여기에 이미지 들어감 -->
 
       </div>
@@ -60,36 +102,6 @@
       <button type="button" class="btm_image" name="foodButton"><img src="./images/dan12.png" style="height: 150px; width: 150px;"></button>
       
 
-      <!-- <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-
-
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div> -->
-<!-- 
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer> -->
 
     </div> <!-- /container -->
 

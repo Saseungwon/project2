@@ -11,10 +11,17 @@
     <!-- Bootstrap core CSS -->
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
 
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="./css/아작스1.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
 
   </head>
   <style>
@@ -31,71 +38,506 @@
   <body>
     <div class="container">
       <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="start.html">Home</a></li>
 
+            <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project Dog</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="start.html">홈</a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="list.html">정보 게시판</a></li>
+                <li><a href="./missingList.html">유기동물 게시판</a></li>
+              </li>
+              </ul>
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">정보 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="searchDog1.html">견종</a></li>
+                  <li><a href="./dagerFood.html">위험한 음식</a></li>
+                </li>
+                </ul>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">유기견 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="MissChart.html">통계</a></li>
+                    <li><a href="./missingList.html">유기동물 게시판</a></li>
+                  </li>
+
+                  <li class="divider"></li>
+                <li class="dropdown-header">다른 사이트로 이동</li>
+                <li><a href="https://www.daejeon.go.kr/ani/index.do">대전시 동물보호센터</a></li>
+                <li><a href="https://www.animals.or.kr/support/intro">후원하기</a></li>
+                  </ul>
+            </li>
           </ul>
-        </nav>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
         <h3 class="text-muted">유기견 통계</h3>
       </div>
 
-      <div class="jumbotron">
+      <!-- <div class="jumbotron">
         <h2>유기견 통계</h2> <br>
-      </div>
-
-      <div style="width:700px;height:700px;">
-        <canvas id="DogChart"></canvas>
-        <canvas id="MissChart"></canvas>
-
-        <input type=button value="유기견 사망률" onclick="f_chg()">
-        <input type=button value="생존 유기견 중 보호중 제외한 값" onclick="f_chg1()">
-        <input type=button value="보호중 유기견 10일 후 안락사" onclick="f_chg2()">
-        <canvas id="MissDonut"></canvas>
-    </div>
-      
-
-      <!-- <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-
-
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
       </div> -->
-<!-- 
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer> -->
-
+      <div class="row marketing"> 
+        <div class="center-block" >
+          <h1 class="text-center">1.  연도별 반려견 수</h1> <br>
+          <h4 class="text-center">"2017년까지 지속적으로 증가 후 조금 내려온 모습"</h4>
+        </div>
+      </div>
+      <div style="width:700px;height:500px;">  
+        <canvas id="DogChart"></canvas> 
+        
+      </div>
+      <hr>
+      
+      <div class="center-block" >
+        <h1 class="text-center">2.  연도별 유기견 수</h1> <br>
+        <h4 class="text-center">"반려견 수가 주춤한 것과 반대로 유기견 수는 지속적 증가"</h4>
+        <h4 class="text-center">"2010년에 비해 약 2배 증가"</h4>
+      </div>
+      <div style="width:700px;height:500px;">
+        <canvas id="MissChart"></canvas>
+      </div>
+  
+  
+      <hr>
+      <h1 class="text-center">3.  유기견 통계</h1> <br>
+      <div class="center-block" id="MissChartAppend">
+        <h4 class="text-center">"유기견 처리 분류는 보호중, 입양, 반환, 기타, 자연사, 안락사로 나뉘게 된다."</h4> <br><br>
+      </div>
+      <div style="width:700px;height:500px;">
+        <canvas id="MissDonut"></canvas> <br><br>
+        <div class="col text-center">
+        <button class="btn" name="chartBtn" onclick="f_chg0()">유기견 처리분류</button> 
+        <button class="btn" name="chartBtn" onclick="f_chg1()">유기견 사망률</button> 
+        <button class="btn" name="chartBtn" onclick="f_chg2()">보호중 상태 포함</button> 
+        <button class="btn" name="chartBtn" onclick="f_chg3()">보호중 유기견 예측 결과</button>
+       </div>
+        </div>
     </div> <!-- /container -->
 
+
     <script>
+function appendSelectFoodContents(data, index) {
+    var selectAppendTag = document.getElementById('MissChartAppend');
+    
+    return function () {
+    
+        for (var i = 0; i < data.length; i++) {
+            var chartData = data[i];
+    
+            if(Number(chartData.id) === index + 1) {
+                var str = '';
+    
+                str += '<h4 class="text-center">'+'"' + chartData.content +'"'+ '</h4><br><br>';
+                str +='</div>';
+                console.log(selectAppendTag);
+    
+                selectAppendTag.innerHTML = str;
+            }
+        }   
+    };
+}
+
+
+
+
+
+$(function () {
+    $.ajax({
+        url:"chartData.json",
+        dataType: "json",
+        success: function (data) {
+            var chartBtnNames = document.getElementsByName('chartBtn');
+
+            for (var i = 0; i < chartBtnNames.length; i++) {
+              chartBtnNames[i].addEventListener('click', appendSelectFoodContents(data, i));
+              console.log(chartBtnNames);
+            }
+        },
+        error: function () { 
+            alert("에러발생"); 
+        },
+    });
+});
+
+
+
+
+
+
+
+var ctx = document.getElementById('DogChart').getContext('2d');
+var DogChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['2010년', '2012년', '2015년', '2017년', '2018년', '2019년'],
+        datasets: [
+            {
+            label: '반려견 양육현황(단위 : 마리)',
+            data: [4615198, 4397275, 5126127, 6620342, 5072272, 5984903],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 3,
+            tension: 0
+            },
+    ]
+    },
+    options:{
+
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 30,
+                fontColor: '#111',
+                padding: 0,
+                fontSize : 15
+            }
+        },
+
+        tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+			animation: {
+				duration: 1,
+				onComplete: function () {
+					var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+					ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+					ctx.fillStyle = 'purple';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'bottom';
+
+					this.data.datasets.forEach(function (dataset, i) {
+						var meta = chartInstance.controller.getDatasetMeta(i);
+						meta.data.forEach(function (bar, index) {
+							var data = dataset.data[index];							
+							ctx.fillText(data, bar._model.x, bar._model.y - 5);
+						});
+					});
+				}
+			},
+            
+    }
+
+});
+
+var Mschart = document.getElementById('MissChart').getContext('2d');
+var MissChart = new Chart(Mschart, {
+    type: 'line',
+    data: {
+    labels: ['2010년', '2012년', '2015년', '2017년', '2018년', '2019년'],
+    datasets: [
+            {
+            label: '반려견 양육현황(단위 : 마리)',
+            data: [55902, 59168, 59633, 74337, 91797, 102363],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 3,
+            tension: 0
+            
+            }
+
+    ]
+    },
+    options:{
+        title: {
+            display: true,
+            //text: '연도별 유기견 수',
+            position: 'top',
+            fontSize: 20,
+            fontColor: '#111',
+            padding: 5
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 20,
+                fontColor: '#111',
+                padding: 15,
+                fontSize : 15
+            }
+        },
+
+        tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+			animation: {
+				duration: 1,
+				onComplete: function () {
+					var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+					ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+					ctx.fillStyle = 'purple';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'bottom';
+
+					this.data.datasets.forEach(function (dataset, i) {
+						var meta = chartInstance.controller.getDatasetMeta(i);
+						meta.data.forEach(function (bar, index) {
+							var data = dataset.data[index];							
+							ctx.fillText(data, bar._model.x, bar._model.y - 5);
+						});
+					});
+				}
+			}
+    }
+
+});
+
+
+//버튼0
+function f_chg0(){
+        //console.log(MissDonut.data.datasets[0]);
+        //console.log(MissDonut.data.labels);     
+        MissDonut.data.labels =  ['보호중', '입양', '반환', '기타', '자연사', '안락사'],
+        MissDonut.data.datasets[0].data = [14.1, 27.2, 14.3, 2.5, 24.2, 17.7],
+        MissDonut.data.datasets[0].backgroundColor = [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(241, 142, 78, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(103, 232, 150, 0.5)',
+                'rgba(103, 169, 232, 0.5)',
+                'rgba(181, 103, 232, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+                'rgba(255, 99, 132, 1)',
+                'rgba(241, 142, 78, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(103, 232, 150, 1)',
+                'rgba(103, 169, 232, 1)',
+                'rgba(181, 103, 232, 1)'
+        ]
+        MissDonut.options.title.text = '유기견 처리현황'
+        MissDonut.update(); 
+    }
+
+//버튼1
+function f_chg1(){
+        //console.log(MissDonut.data.datasets[0]);
+        //console.log(MissDonut.data.labels);     
+        MissDonut.data.labels = ['생존', '사망'];
+        //MissDonut.data.datasets[0].labels = ['생존', '사망']
+        MissDonut.data.datasets[0].data = [58.1, 41.9];
+        MissDonut.data.datasets[0].backgroundColor = [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 99, 132, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+        ]
+        MissDonut.options.title.text = '유기견 사망률'
+        MissDonut.update(); 
+    }
+
+//버튼2
+    function f_chg2(){
+        MissDonut.data.labels = ['생존', '사망','보호중']
+        MissDonut.data.datasets[0].data = [44, 41.9, 14.1];
+        MissDonut.data.datasets[0].backgroundColor = [
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(114, 229, 163, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(114, 229, 163, 1)'
+        ]
+        MissDonut.options.title.text = '보호중 상태 포함된 생존율'
+        MissDonut.update();  
+    }    
+
+//버튼3
+    function f_chg3(){
+    
+        //  console.log(MissDonut.data.datasets[0]);
+        MissDonut.data.labels = ['생존', '사망']
+        MissDonut.data.datasets[0].data = [52.5, 47.5];
+        MissDonut.data.datasets[0].backgroundColor = [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 99, 132, 0.5)'
+        ],
+        MissDonut.data.datasets[0].borderColor = [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+        ]
+        MissDonut.options.title.text = '보호중인 유기견  사망률 예측'
+        //console.log(MissDonut.options.title.text);
+
+        MissDonut.update(); 
+    }    
+
+
+
+
+
+
+var MsDonut = document.getElementById('MissDonut').getContext('2d');
+var MissDonut = new Chart(MsDonut, {
+    type: 'doughnut',
+    data: {
+    labels: ['보호중', '입양', '반환', '기타', '자연사', '안락사'],
+    datasets: [
+            {
+            label: '유기견 처리상태(단위 : %)',
+            data: [14.1, 27.2, 14.3, 2.5, 24.2, 17.7],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(241, 142, 78, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(103, 232, 150, 0.5)',
+                'rgba(103, 169, 232, 0.5)',
+                'rgba(181, 103, 232, 0.5)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(241, 142, 78, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(103, 232, 150, 1)',
+                'rgba(103, 169, 232, 1)',
+                'rgba(181, 103, 232, 1)'
+            ],
+            borderWidth: 3,
+            
+            options: {
+    plugins: {
+      datalabels: {
+        display: true,
+        align: 'bottom',
+        backgroundColor: '#ccc',
+        borderRadius: 3,
+        font: {
+          size: 18,
+        }
+      },
+    }
+  }      
+            }
+
+    ]
+},
+options: {
+        title: {
+            display: true,
+            text: '유기견 처리현황',
+            position: 'top',
+            fontSize: 25,
+            fontColor: '#111',
+            padding: 5
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 20,
+                fontColor: '#111',
+                padding: 15,
+                fontSize: 17
+            }
+        },
+        
+        tooltips: {
+            enabled: false
+        },
+/*         plugins: {
+            datalabels: {
+                color: '#111',
+                textAlign: 'center',
+                font: {
+                    lineHeight: 1.6
+                },
+                formatter: function(value, MsDonut) {
+                    return MsDonut.chart.data.labels[MsDonut.dataIndex] + '\n' + value + '%';
+                }
+            }
+        }, */
+
+        plugins: {
+            
+      datalabels: {
+        formatter: (value) => {
+        
+          return value + '%';
+        }
+      }
+    }
+        
+        
+        
+    },
+
+    formatter: function(value) {
+      return value + '%';
+}
+});
 
         
     </script>
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <script src="./imageUpload.js"></script>
   </body>
 </html>

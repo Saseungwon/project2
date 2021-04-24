@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>아작스페이지</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    
+
+  </head>
+  <style>
+    .btm_image{
+      border: 0;
+          outline: 0;
+          background-color: white;
+      }
+      #tablList{
+        border-radius: 5px;
+        
+      }
+  </style>
+  <body>
+    <div class="container">
+      <div class="header">
+
+            <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project Dog</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="start.html">홈</a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="list.html">정보 게시판</a></li>
+                <li><a href="./missingList.html">유기동물 게시판</a></li>
+              </li>
+              </ul>
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">정보 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="searchDog1.html">견종</a></li>
+                  <li><a href="./dagerFood.html">위험한 음식</a></li>
+                </li>
+                </ul>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">유기견 <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="MissChart.html">통계</a></li>
+                    <li><a href="./missingList.html">유기동물 게시판</a></li>
+                  </li>
+
+                  <li class="divider"></li>
+                <li class="dropdown-header">다른 사이트로 이동</li>
+                <li><a href="https://www.daejeon.go.kr/ani/index.do">대전시 동물보호센터</a></li>
+                <li><a href="https://www.animals.or.kr/support/intro">후원하기</a></li>
+                  </ul>
+            </li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      </div>
+
+      <div class="row marketing"> 
+        <div class="center-block" >
+          <div id="map" style="width:700px;height:350px;"></div>
+          <div id="roadview" style="width:700px;height:350px;"></div>
+        </div>
+      </div>
+
+
+    <script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(37.56738, 126.97244), // 지도의 중심좌표
+		        level: 3, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		//로드뷰를 표시할 div
+		var roadviewContainer = document.getElementById('roadview'); 
+
+		// 로드뷰 위치
+		var rvPosition = new kakao.maps.LatLng(37.56580, 126.97880);
+
+		//로드뷰 객체를 생성한다
+		var roadview = new kakao.maps.Roadview(roadviewContainer, {
+			panoId : 1119343682, // 로드뷰 시작 지역의 고유 아이디 값
+			panoX : 126.97880, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값
+			panoY : 37.56580, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값
+			pan: 123.69965146426827, // 로드뷰 처음 실행시에 바라봐야 할 수평 각
+			tilt: 12.156287887400705, // 로드뷰 처음 실행시에 바라봐야 할 수직 각
+			zoom: -1 // 로드뷰 줌 초기값
+		}); 
+
+		// 로드뷰 초기화가 완료되었을 때 로드뷰에 마커나 커스텀오버레이를 표시한다
+		kakao.maps.event.addListener(roadview, 'init', function() {
+		});
+
+		// 로드뷰 초기화 완료 이벤트를 등록한다
+		kakao.maps.event.addListener(roadview, 'init', function() {
+		    console.log('로드뷰 초기화가 완료되었습니다');
+		});
+
+		// 로드뷰 파노라마 ID 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(roadview, 'panoid_changed', function() {
+		    console.log('로드뷰의 파노라마 ID가 변경되었습니다');
+		});
+
+		// 로드뷰 시점 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(roadview, 'viewpoint_changed', function() {
+			console.log('로드뷰 시점이 변경되었습니다');
+		});
+
+		// 로드뷰 지도 좌표 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(roadview, 'position_changed', function() {
+		    console.log('로드뷰 좌표가 변경되었습니다');
+		});
+
+        
+    </script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ceeefaad1682c40ed46901e58c749dc"></script>
+  </body>
+</html>
