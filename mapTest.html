@@ -5,14 +5,15 @@
 	<title>다음 지도 API</title>
 </head>
 <body>
-	<div id="map" style="width:700px;height:350px;"></div>
-	<div id="roadview" style="width:700px;height:350px;"></div>
+	<div id="map" style="width:750px;height:350px;"></div>
+	<div id="roadview" style="width:750px;height:350px;"></div>
+    
 
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ceeefaad1682c40ed46901e58c749dc"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc355acaa04655dcdbb207501a4064f8"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new kakao.maps.LatLng(37.56738, 126.97244), // 지도의 중심좌표
+		        center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
 		        level: 3, // 지도의 확대 레벨
 		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
 		    }; 
@@ -20,19 +21,41 @@
 		// 지도를 생성한다 
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 
+		// 지도 타입 변경 컨트롤을 생성한다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);	
+
+		// 지도에 확대 축소 컨트롤을 생성한다
+		var zoomControl = new kakao.maps.ZoomControl();
+
+		// 지도의 우측에 확대 축소 컨트롤을 추가한다
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+		// 지도에 마커를 생성하고 표시한다
+		var marker = new kakao.maps.Marker({
+		    position: new kakao.maps.LatLng(37.56682, 126.97865), // 마커의 좌표
+		    map: map // 마커를 표시할 지도 객체
+		});
+
+		// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
+		kakao.maps.event.addListener(marker, 'click', function() {
+		    alert('마커를 클릭했습니다!');
+		});
+
 		//로드뷰를 표시할 div
 		var roadviewContainer = document.getElementById('roadview'); 
 
 		// 로드뷰 위치
-		var rvPosition = new kakao.maps.LatLng(37.56580, 126.97880);
+		var rvPosition = new kakao.maps.LatLng(37.56613, 126.97837);
 
 		//로드뷰 객체를 생성한다
 		var roadview = new kakao.maps.Roadview(roadviewContainer, {
-			panoId : 1119343682, // 로드뷰 시작 지역의 고유 아이디 값
-			panoX : 126.97880, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값
-			panoY : 37.56580, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값
-			pan: 123.69965146426827, // 로드뷰 처음 실행시에 바라봐야 할 수평 각
-			tilt: 12.156287887400705, // 로드뷰 처음 실행시에 바라봐야 할 수직 각
+			panoId : 1050215190, // 로드뷰 시작 지역의 고유 아이디 값
+			panoX : 126.97837, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값
+			panoY : 37.56613, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값
+			pan: 68, // 로드뷰 처음 실행시에 바라봐야 할 수평 각
+			tilt: 1, // 로드뷰 처음 실행시에 바라봐야 할 수직 각
 			zoom: -1 // 로드뷰 줌 초기값
 		}); 
 
@@ -43,16 +66,6 @@
 		// 로드뷰 초기화 완료 이벤트를 등록한다
 		kakao.maps.event.addListener(roadview, 'init', function() {
 		    console.log('로드뷰 초기화가 완료되었습니다');
-		});
-
-		// 로드뷰 파노라마 ID 변화 이벤트를 등록한다
-		kakao.maps.event.addListener(roadview, 'panoid_changed', function() {
-		    console.log('로드뷰의 파노라마 ID가 변경되었습니다');
-		});
-
-		// 로드뷰 시점 변화 이벤트를 등록한다
-		kakao.maps.event.addListener(roadview, 'viewpoint_changed', function() {
-			console.log('로드뷰 시점이 변경되었습니다');
 		});
 
 		// 로드뷰 지도 좌표 변화 이벤트를 등록한다
