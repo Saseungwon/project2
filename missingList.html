@@ -200,7 +200,9 @@
             v_ajax.open(
                 "post",
                 "wpost.php",
-                true); 
+                true);
+
+                console.log(pageNo);
             v_ajax.onreadystatechange = function(){
                 if(v_ajax.readyState==4 && v_ajax.status == 200){
                     var missingDogTable = document.querySelector("#missingDogTable");

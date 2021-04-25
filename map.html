@@ -22,7 +22,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc355acaa04655dcdbb207501a4064f8"></script>
-    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   </head>
   <style>
@@ -54,12 +54,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="start.html">홈</a></li>
+            <li><a href="./start.html">홈</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="list.html">정보 게시판</a></li>
+                <li><a href="./list.html">정보 게시판</a></li>
                 <li><a href="./missingList.html">유기동물 게시판</a></li>
               </li>
               </ul>
@@ -67,8 +67,9 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">정보 <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="searchDog1.html">견종</a></li>
+                  <li><a href="./searchDog1.html">견종</a></li>
                   <li><a href="./dagerFood.html">위험한 음식</a></li>
+                  <li><a href="./map.html">산책가자!</a></li>
                 </li>
                 </ul>
 
@@ -100,12 +101,14 @@
       </div> -->
       <div class="row marketing"> 
         <div class="center-block" >
-          <h1 class="text-center">1.  연도별 반려견 수</h1> <br>
-          <h4 class="text-center">"2017년까지 지속적으로 증가 후 조금 내려온 모습"</h4>
-          
+          <h1 class="text-center">쿠키 산책가자!</h1> <br>
+          <h3 class="text-center">대전시 공원 모음</h3> 
+          <h5 class="text-center">(마커를 클릭해 로드뷰 보기)</h5>
 
-          <div id="map" style="width:750px;height:350px;"></div>
-          <div id="roadview" style="width:750px;height:350px;"></div>
+          <div id="map" style="width:700px;height:350px;"></div> <br><br>
+
+          <h4 id="ggg" class="text-center"></h4> 
+          <div id="roadview" style="width:700px;height:350px;"></div>
         </div>
       </div>
      
@@ -113,8 +116,8 @@
     <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-		        level: 3, // 지도의 확대 레벨
+		        center: new kakao.maps.LatLng(36.35111, 127.38500), // 지도의 중심좌표
+		        level: 8, // 지도의 확대 레벨
 		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
 		    }; 
 
@@ -133,9 +136,59 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		// 지도의 우측에 확대 축소 컨트롤을 추가한다
 		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+    
         
-        
-        function positionSet() {
+        function renderRoadViews(marker) {
+          kakao.maps.event.addListener(marker, 'click', function() {
+            var selectAppendTag = document.getElementById('ggg');
+            var str = '';
+    
+            str += '<h3>' + "로드뷰" + '</h3>';
+            selectAppendTag.innerHTML = str;
+
+
+
+            var v_markerXY = marker.getPosition();
+
+            //로드뷰를 표시할 div
+            var roadviewContainer = document.getElementById('roadview'); 
+
+            //로드뷰 객체를 생성한다
+            var roadview = new kakao.maps.Roadview(roadviewContainer); 
+
+            //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+            var roadviewClient = new kakao.maps.RoadviewClient(); 
+
+            // 로드뷰 위치
+
+            // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+            roadviewClient.getNearestPanoId(v_markerXY, 200, function(panoId) {
+              if(!panoId) {
+                //alert('로드뷰가 존재하지 않습니다.');
+                swal("로드뷰가 존재하지 않습니다!", "다른 마커를 눌러주세요!", "error");
+                return;
+              }
+
+              roadview.setPanoId(panoId, v_markerXY); //panoId와 중심좌표를 통해 로드뷰 실행
+            });
+
+            // 로드뷰 초기화가 완료되었을 때 로드뷰에 마커나 커스텀오버레이를 표시한다
+            kakao.maps.event.addListener(roadview, 'init', function() {
+            });
+
+            // 로드뷰 초기화 완료 이벤트를 등록한다
+            kakao.maps.event.addListener(roadview, 'init', function() {
+                console.log('로드뷰 초기화가 완료되었습니다');
+            });
+
+            // 로드뷰 지도 좌표 변화 이벤트를 등록한다
+            kakao.maps.event.addListener(roadview, 'position_changed', function() {
+                console.log('로드뷰 좌표가 변경되었습니다');
+            });
+          });
+        }
+
+    var v_btn = document.querySelector("#id_btn");
             var v_ajax = new XMLHttpRequest();
             v_ajax.open(
                 "post",
@@ -145,123 +198,49 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 if(v_ajax.readyState==4 && v_ajax.status == 200){
                     
                     var v_json = JSON.parse(v_ajax.responseText); 
-                    console.log(JSON.parse(v_ajax.responseText));
                     var v_mapData = v_json.MsgBody.items; 
-                    console.log(v_json.body.items.item); 
+                    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+                    var imageSize = new kakao.maps.Size(24, 35); 
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-                    var v_wedo;
-                    var v_gyeungdo;
-                    var v_parkCate;
-                    var v_parkName;
-                    var v_parkAddr;
-                    
                     for(var i=0; i < v_mapData.length; i++){
-                        console.log(v_mapData[i].address);
+                      //console.log(v_mapData);
+                      //console.log(v_mapData[i]);
+                          var marker = new kakao.maps.Marker({
+                              map: map, // 마커를 표시할 지도 객체
+                              position: new kakao.maps.LatLng(v_mapData[i].latitude, v_mapData[i].longitude), // 마커를 표시할 위치
+                              text : v_mapData[i].address,
+                              title : v_mapData[i].address, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                              image : markerImage // 마커 이미지 
+                          });
+                          
+                          //console.log(marker);
+                          renderRoadViews(marker);
+                          // 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
                         
-                        v_wedo = v_mapData[i].latitude;
-                        v_gyeungdo = v_mapData[i].longitude; 
-                        v_parkCate = v_mapData[i].title;
-                        v_parkName = v_mapData[i].section;
-                        v_parkAddr = v_mapData[i].address;
                     }
+                    
+
+
                     // latitude : 위도
                     // longitude : 경도
                     // section : 공원구분
                     // title : 공원명
                     // address : 도로명주소
-                    
-                    var positions = new Object;
-                    
-                    for (var i = 0; i < v_mapData.length; i++) {
-                        position.title = v_parkName;
-                        position.latlng = new kakao.maps.LatLng(v_wedo,v_gyeungdo);
-                    }
 
+                    console.log(v_mapData);
                 }
             }
-            v_ajax.send(data); 
-        }
+            v_ajax.send(); 
+
+
+
+
+
+
         
-    
-        
-        // 마커를 표시할 위치와 title 객체 배열입니다 
-
-        // var positions = [
-        //     {
-        //         title: '카카오', 
-        //         latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-        //     },
-        //     {
-        //         title: '생태연못', 
-        //         latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-        //     },
-        //     {
-        //         title: '텃밭', 
-        //         latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-        //     },
-        //     {
-        //         title: '근린공원',
-        //         latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-        //     }
-        // ];
-        
-        
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-
-        for (var i = 0; i < positions.length; i ++) {
-    
-        // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new kakao.maps.Size(24, 35); 
-        
-        // 마커 이미지를 생성합니다    
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-        
-        // 지도에 마커를 생성하고 표시한다
-        var marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도 객체
-            position: positions[i].latlng, // 마커를 표시할 위치
-            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-            image : markerImage // 마커 이미지 
-        });
-        }
-
-		// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
-		kakao.maps.event.addListener(marker, 'click', function() {
-		    alert('마커를 클릭했습니다!');
-		});
 
 
-
-		//로드뷰를 표시할 div
-		var roadviewContainer = document.getElementById('roadview'); 
-
-		// 로드뷰 위치
-		var rvPosition = new kakao.maps.LatLng(37.56613, 126.97837);
-
-		//로드뷰 객체를 생성한다
-		var roadview = new kakao.maps.Roadview(roadviewContainer, {
-			panoId : 1050215190, // 로드뷰 시작 지역의 고유 아이디 값
-			panoX : 126.97837, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값
-			panoY : 37.56613, // panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값
-			pan: 68, // 로드뷰 처음 실행시에 바라봐야 할 수평 각
-			tilt: 1, // 로드뷰 처음 실행시에 바라봐야 할 수직 각
-			zoom: -1 // 로드뷰 줌 초기값
-		}); 
-
-		// 로드뷰 초기화가 완료되었을 때 로드뷰에 마커나 커스텀오버레이를 표시한다
-		kakao.maps.event.addListener(roadview, 'init', function() {
-		});
-
-		// 로드뷰 초기화 완료 이벤트를 등록한다
-		kakao.maps.event.addListener(roadview, 'init', function() {
-		    console.log('로드뷰 초기화가 완료되었습니다');
-		});
-
-		// 로드뷰 지도 좌표 변화 이벤트를 등록한다
-		kakao.maps.event.addListener(roadview, 'position_changed', function() {
-		    console.log('로드뷰 좌표가 변경되었습니다');
-		});
 
 
 
