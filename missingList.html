@@ -198,21 +198,22 @@
             var v_ajax = new XMLHttpRequest();
 
             v_ajax.open(
-                "post",
+                "get",
                 "wpost.php",
                 true);
 
-                console.log(pageNo);
+                //console.log(pageNo);
             v_ajax.onreadystatechange = function(){
                 if(v_ajax.readyState==4 && v_ajax.status == 200){
                     var missingDogTable = document.querySelector("#missingDogTable");
 
                     missingDogTable.innerHTML = '';
-
-                    //console.log(JSON.parse(v_ajax.responseText));
+                    console.log(v_ajax.responseText);
+                    console.log(JSON.parse(v_ajax.responseText));
                     var v_json = JSON.parse(v_ajax.responseText); 
+                    console.log(v_json);
                     var v_missDogData = v_json.body.items.item; 
-                    console.log(v_json.body.items.item); 
+                    //console.log(v_json.body.items.item); 
                     var v_tblStr = '<table class="table">'; 
     
                         for(var i=0; i < v_missDogData.length; i++){
