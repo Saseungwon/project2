@@ -1,5 +1,5 @@
 # 📚 반려견 종합 커뮤니티 사이트
-### ✍ language : javaScript, Ajax, php(오픈API사용), Json
+### ✍ language : javaScript, Ajax, php(오픈API사용), Json, jQuery
 ### ✍ Tool : Visual Studio Code
 ### ✍ 담당업무 
 1. 위험한 음식 페이지
