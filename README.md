@@ -1,10 +1,26 @@
-# project-1
-- JavaScript 첫번째 프로젝트
+# 📚 반려견 종합 커뮤니티 사이트
+### ✍ language : javaScript, Ajax, php(오픈API사용), Json
+### ✍ Tool : Visual Studio Code
+### ✍ 담당업무 
+1. 위험한 음식 페이지
+ - 이미지에 대한 url과 정보를 Json으로 만들었습니다.
+ - 이미지를 클릭하면 Ajax 방식으로 정보를 보여주는 div에 해당 음식에 대한 정보와 이미지를 출력합니다. 
 
-```html
-<!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+2. 유기동물 게시판 페이지 
+ - 유기동물정보 Api를 사용하여 원하는 데이터만 추출하여 게시판 형태로 출력합니다. 
+ - 유기동물의 나이를 클릭하면 해당 유기동물의 다양한 정보들을 modal 창에 담아 출력합니다. 
+ - 후원하기를 클릭하면 유기동물 후원 사이트로 이동합니다. 
 
+3. 유기견 통계 페이지 
+ - 유기견이 되면 사망률이 거의 50%에 가까워지게 된다는 정보를 사용자에게 전달하고자 도넛 차트를 이용하여 오른쪽 버튼으로 갈수록 사망률이 점점 높아지는 것을 표현했습니다. 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-```
+4. 산책로 정보 페이지 
+ - Kakao Map Api와 대전산책로정보 Api를 사용했습니다. 
+ - 산책로정보 Api에 있는 좌표를 사용하여 kakao Map에 마커를 찍어줬습니다. 
+ - 마우스를 올리면 해당 좌표의 주소를 보여줍니다. 
+ - 마커 클릭 시 해당 좌표에서 가장 가까운 로드뷰를 출력합니다. 
+ - 만약 로드뷰가 일정 거리 이상을 넘어갈 시 로드뷰가 없다는 알림을 출력합니다.
+
+5. 견종별 정보 
+ - 견종정보 Api를 사용했습니다.
+ - 견종명 선택 시 해당 견종의 정보를 출력합니다. 
